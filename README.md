@@ -10,7 +10,7 @@ This project is a real-time streaming data pipeline utilized with the ScalaSpark
 
 ## Introduction
 This project is a real-time streaming data pipeline utilized with the ScalaSpark artifact above. NIFI implements pulling TTC bus route data and connects to Kafka
-![DIAGRAM](
+![DIAGRAM](https://github.com/ChloeHeekSuh/spark-realtime-streaming-emr-5.34/blob/master/screenshot/diagram.png)
 
 ## Technologies
 * Spark Version = 2.4.4
@@ -20,7 +20,7 @@ This project is a real-time streaming data pipeline utilized with the ScalaSpark
 * Kafka Version = 2.6.2
 
 ## Setup
-The explaination below is simplified steps.
+The explaination below is simplified steps. We will use debezium to interact NIFI, Mysql and kafka each other.
 
 1. Setup Docker on AWS EC2\
 : [Docker basics for Amazon ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html)
@@ -50,17 +50,17 @@ docker run -dit --name connect -p 8083:8083 -e GROUP_ID=1 -e CONFIG_STORAGE_TOPI
 
 ## Workflow
 
-Extract bus route data from TTC Rest API through the NIFI. The NIFI makes automation for the movement of data between systems. So in this case, Nifi collects the bus status and files this data to the Mysql database. Mysql and kafka use debezium.
- 
+Extract bus route data from [TTC Rest API](http://restbus.info/api/agencies/ttc/routes/7/vehicles) through the NIFI. The NIFI makes automation for the movement of data between systems. So in this case, Nifi collects the bus status and files this data to the Mysql database.
+<img src="https://github.com/ChloeHeekSuh/spark-realtime-streaming-emr-5.34/blob/master/screenshot/nifi.png">
+<img src="https://github.com/ChloeHeekSuh/spark-realtime-streaming-emr-5.34/blob/master/screenshot/mysql.png">          
 Debezium utilizes CDC, to capture the change of the data. For achieving the universe, Debezium connect is going to create the first snapshot in MySQL table and download all the previous records from MySQL first, load them into Kafka and repeat so on to update.
- 
  
 After that, spark-submit starts data processing with Hudi on the AWS EMR cluster to convert the data to a parquet file. More specifically, existing records are documented in metadata(commit file) in Hudi.
 
 After updating the records, the new records are saved to new parquets. Also, a new commit is being a new universe.
- 
- 
-This parquet will be saved to the S3 bucket and also Athena set up the table with the parquet as I defined on the spark Jar. The reason why using Athena is to query the Hudi data that read the data all of in MSK directly.
+
+<img src="https://github.com/ChloeHeekSuh/spark-realtime-streaming-emr-5.34/blob/master/screenshot/athena.png" width="900">
+Those parquets will be saved to the S3 bucket and also Athena set up the table with the parquet as I defined on the spark Jar. The reason why using Athena is to query the Hudi data that read the data all of in MSK directly.
 
 ## Sources
 This app is inspired by Edwin Guo’s lecture and [Spark Streaming with Kafka-Connect Debezium Connector by @Suchit Gupta](https://suchit-g.medium.com/spark-streaming-with-kafka-connect-debezium-connector-ab9163808667)
