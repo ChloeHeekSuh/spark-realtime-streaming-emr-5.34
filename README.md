@@ -17,7 +17,7 @@ This project is a real-time streaming data pipeline utilized with the ScalaSpark
 * [Sources](#sources)
 
 ## Introduction
-This project is a real-time streaming data pipeline utilized with the ScalaSpark artifact above. NIFI pulls TTC bus route data and connects to Kafka, MySQL. Hudi and Spark on EMR clustur implements transforming the data to a parquet file. The parquet in AWS S3 can be used as a dataset in AWS Athena, then Superset utilizes this dataset as a database for visualization. 
+This project is a real-time streaming data pipeline utilized with the ScalaSpark artifact above. NIFI pulls TTC bus route data and connects to Kafka, MySQL. Hudi and Spark on the EMR cluster implement transforming the data to a parquet file. The parquet in AWS S3 can be used as a dataset in AWS Athena, then Superset utilizes this dataset as a database for visualization.
 ![DIAGRAM](https://github.com/ChloeHeekSuh/spark-realtime-streaming-emr-5.34/blob/master/screenshot/diagram.png)
 
 ## Technologies
