@@ -61,7 +61,7 @@ docker run -dit --name connect -p 8083:8083 -e GROUP_ID=1 -e CONFIG_STORAGE_TOPI
 Extract bus route data from [TTC Rest API](http://restbus.info/api/agencies/ttc/routes/7/vehicles) through the NIFI. The NIFI makes automation for the movement of data between systems. So in this case, Nifi collects the bus status and files this data to the Mysql database.
 <img src="https://github.com/ChloeHeekSuh/spark-realtime-streaming-emr-5.34/blob/master/screenshot/nifi.png">
 <img src="https://github.com/ChloeHeekSuh/spark-realtime-streaming-emr-5.34/blob/master/screenshot/mysql.png">          
-Debezium utilizes CDC, to capture the change of the data. For achieving the universe, Debezium connect is going to create the first snapshot in MySQL table and download all the previous records from MySQL first, load them into Kafka and repeat so on to update.
+Debezium utilizes CDC to capture the change of the data. For achieving the universe, Debezium connect is going to create the first snapshot in MySQL table and download all the previous records from MySQL first, load them into Kafka and repeat so on to update.
  
 After that, spark-submit starts data processing with Hudi on the AWS EMR cluster to convert the data to a parquet file. More specifically, existing records are documented in metadata(commit file) in Hudi.
 
