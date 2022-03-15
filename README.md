@@ -71,4 +71,4 @@ After updating the records, the new records are saved to new parquets. Also, a n
 Those parquets will be saved to the S3 bucket and also Athena set up the table with the parquet as I defined on the spark Jar. The reason why using Athena is to query the Hudi data that read the data all of in MSK directly.
 
 ## Sources
-This app is inspired by Edwin Guo’s lecture and [Spark Streaming with Kafka-Connect Debezium Connector by @Suchit Gupta](https://suchit-g.medium.com/spark-streaming-with-kafka-connect-debezium-connector-ab9163808667)
+This project is inspired by Edwin Guo’s lecture and [Spark Streaming with Kafka-Connect Debezium Connector by @Suchit Gupta](https://suchit-g.medium.com/spark-streaming-with-kafka-connect-debezium-connector-ab9163808667)
